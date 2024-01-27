@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  /* background-color: rgb(136 19 55); */
+  /* background-color: rgb(255 241 242); */
+}
+
+@media (prefers-color-scheme: dark) {
+  html,
+  body {
+    background-color: rgb(15 23 42);
+  }
+}
+
+/* Hide the default triangle icon for the <details> element */
+details > summary {
+  list-style: none;
+}
+
+details > summary::marker,
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Toast fade in/out animation */
+.fade-in {
+  animation: fadeIn ease 0.3s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
