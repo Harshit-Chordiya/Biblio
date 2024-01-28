@@ -3,9 +3,9 @@ import Header from '@/components/global/Header'
 import Footer from '@/components/global/Footer'
 import UnsupportedRoute from '@/components/global/UnsupportedRoute'
 
-const Slug = () => {
+const Slug = ({params}) => {
   const router = useRouter()
-  const { slug } = router.query
+  const slug = params.slug
 
   return (
     <div>

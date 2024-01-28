@@ -1,15 +1,16 @@
+"use client"
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
-import Header from '../@/components/global/Header'
-import Footer from '../@/components/global/Footer'
-import Loader from '../@/components/global/Loader'
-import ErrorMessage from '../@/components/global/ErrorMessage'
-import AuthorBookList from '../@/components/authorpage/AuthorBookList'
+import Header from '@/components/global/Header'
+import Footer from '@/components/global/Footer'
+import Loader from '@/components/global/Loader'
+import ErrorMessage from '@/components/global/ErrorMessage'
+import AuthorBookList from '@/components/authorpage/AuthorBookList'
 
-const Slug = () => {
+const Slug = ({params}) => {
   const router = useRouter()
-  const { slug } = router.query
+  // const { params.slug } = router.query
   const [scrapedData, setScrapedData] = useState({})
   const [error, setError] = useState(false)
 
@@ -22,7 +23,7 @@ const Slug = () => {
         },
         body: JSON.stringify({
           page: 1,
-          queryURL: `https://www.goodreads.com/author/list/${slug}`
+          queryURL: `https://www.goodreads.com/author/list/${params.slug}`
         })
       })
       if (res.ok) {
@@ -32,10 +33,10 @@ const Slug = () => {
         setError(true)
       }
     }
-    if (slug) {
+    if (params.slug) {
       fetchData()
     }
-  }, [slug])
+  }, [params.slug])
 
   return (
     <div>
@@ -44,7 +45,7 @@ const Slug = () => {
         {error && (
           <ErrorMessage
             status='500'
-            url={`https://www.goodreads.com/author/list/${slug}`}
+            url={`https://www.goodreads.com/author/list/${params.slug}`}
           />
         )}
         {!error && (
@@ -53,13 +54,13 @@ const Slug = () => {
             {scrapedData.error && (
               <ErrorMessage
                 status='404'
-                url={`https://www.goodreads.com/author/list/${slug}`}
+                url={`https://www.goodreads.com/author/list/${params.slug}`}
               />
             )}
             {scrapedData.title === '' && (
               <ErrorMessage
                 status='ScraperError'
-                url={`https://www.goodreads.com/author/list/${slug}`}
+                url={`https://www.goodreads.com/author/list/${params.slug}`}
               />
             )}
             {scrapedData && <AuthorBookList scrapedData={scrapedData} />}

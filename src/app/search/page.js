@@ -1,3 +1,4 @@
+"use client"
 import Meta from '@/components/global/Meta'
 import Header from '@/components/global/Header'
 import Footer from '@/components/global/Footer'

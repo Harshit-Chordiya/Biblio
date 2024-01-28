@@ -1,3 +1,4 @@
+"use client"
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
@@ -10,9 +11,9 @@ import SearchBox from '@/components/searchpage/SearchBox'
 import QuotesResultData from '@/components/searchpage/QuotesResultData'
 import ListsResultData from '@/components/searchpage/ListsResultData'
 
-const Slug = () => {
+const Slug = ({params}) => {
   const router = useRouter()
-  const { slug } = router.query
+  // const { slug } = router.query
   const { query } = router
   const [scrapedData, setScrapedData] = useState({})
   const [error, setError] = useState(false)
@@ -54,7 +55,7 @@ const Slug = () => {
           },
           body: JSON.stringify({
             queryURL: `https://www.goodreads.com/search?q=${encodeURIComponent(
-              slug
+              params.slug
             )}`
           }),
           signal: abortController.signal
@@ -73,14 +74,14 @@ const Slug = () => {
       }
     }
 
-    if (slug) {
+    if (params.slug) {
       fetchData()
     }
 
     return () => {
       abortController.abort()
     }
-  }, [slug])
+  }, [params.slug])
 
   return (
     <div>

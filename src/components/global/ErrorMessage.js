@@ -1,3 +1,4 @@
+"use client"
 /* eslint-disable @next/next/no-html-link-for-pages */
 import React from "react";
 import { useRouter } from "next/navigation";
@@ -115,7 +116,7 @@ const ErrorMessage = (props) => {
       <div className="flex justify-center mt-8 mb-4">
         <button
           type="button"
-          onClick={() => router.reload()}
+          onClick={() => router.refresh()}
           className="mr-12 font-semibold text-md text-white dark:text-white bg-slate-500 ring ring-slate-600 ring-offset-2 ring-offset-slate-100 py-5 px-6 rounded-xl shadow-lg shadow-slate-500 hover:shadow-xl hover:bg-slate-600 transition duration-300 delay-40 hover:delay-40"
         >
           Try Again

@@ -1,15 +1,16 @@
+'use client'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
-import Header from '../@/components/global/Header'
-import Footer from '../@/components/global/Footer'
-import Loader from '../@/components/global/Loader'
-import ErrorMessage from '../@/components/global/ErrorMessage'
-import ResultData from '../@/components/resultpage/ResultData'
+import Header from '@/components/global/Header'
+import Footer from '@/components/global/Footer'
+import Loader from '@/components/global/Loader'
+import ErrorMessage from '@/components/global/ErrorMessage'
+import ResultData from '@/components/resultpage/ResultData'
 
-const Slug = () => {
+const Slug = ({params}) => {
   const router = useRouter()
-  const { slug } = router.query
+  const slug  = params.slug
   const [scrapedData, setScrapedData] = useState({})
   const [error, setError] = useState(false)
 

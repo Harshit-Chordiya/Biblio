@@ -1,3 +1,4 @@
+"use client"
 import React from 'react'
 import Meta from '@/components/global/Meta'
 import Header from '@/components/global/Header'

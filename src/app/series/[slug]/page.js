@@ -1,3 +1,4 @@
+"use client"
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
@@ -7,9 +8,9 @@ import Loader from '@/components/global/Loader'
 import ErrorMessage from '@/components/global/ErrorMessage'
 import SeriesResultData from '@/components/seriespage/SeriesResultData'
 
-const Slug = () => {
+const Slug = ({params}) => {
   const router = useRouter()
-  const { slug } = router.query
+  const slug  = params.slug
   const [scrapedData, setScrapedData] = useState({})
   const [error, setError] = useState(false)
 
@@ -28,6 +29,7 @@ const Slug = () => {
         const data = await res.json()
         setScrapedData(data)
       } else {
+        console.log(res)
         setError(true)
       }
     }

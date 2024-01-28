@@ -6,9 +6,9 @@ import Loader from '@/components/global/Loader'
 import ErrorMessage from '@/components/global/ErrorMessage'
 import QuotesResultData from '@/components/quotespage/QuotesResultData'
 
-const Slug = () => {
+const Slug = ({params}) => {
   const router = useRouter()
-  const { slug } = router.query
+  const slug  = params.slug
   const [scrapedData, setScrapedData] = useState({})
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(false)

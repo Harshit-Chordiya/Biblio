@@ -1,7 +1,7 @@
 import { useRouter } from 'next/navigation'
-import Header from '../@/components/global/Header'
-import Footer from '../@/components/global/Footer'
-import UnsupportedRoute from '../@/components/global/UnsupportedRoute'
+import Header from '@/components/global/Header'
+import Footer from '@/components/global/Footer'
+import UnsupportedRoute from '@/components/global/UnsupportedRoute'
 
 const Slug = () => {
   const router = useRouter()
