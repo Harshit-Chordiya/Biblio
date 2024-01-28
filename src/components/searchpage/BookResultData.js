@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from 'next/link'
-import Meta from '@global/Meta'
+import Meta from '@/components/global/Meta'
 
 const SearchResults = props => {
   return (
