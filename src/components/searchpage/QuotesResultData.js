@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import DOMPurify from 'dompurify'
-import Meta from '@global/Meta'
+import Meta from '../global/Meta'
 
 const QuotesResultData = ({ scrapedData, query }) => {
   return (

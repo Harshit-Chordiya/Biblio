@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { useState } from 'react'
 import DOMPurify from 'dompurify'
-import Meta from '@global/Meta'
+import Meta from '../global/Meta'
 import BookList from './BookList'
 
 const ListResults = ({ scrapedData }) => {

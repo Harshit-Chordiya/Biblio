@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { openDB } from 'idb'
-import SmallLoader from '@global/SmallLoader'
+import SmallLoader from '../global/SmallLoader'
 import LibraryList from './LibraryList'
 
 const LibraryResultData = ({ currentTab }) => {
