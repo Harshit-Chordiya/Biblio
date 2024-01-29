@@ -69,7 +69,7 @@ const Slug = ({params}) => {
                 url={`https://www.goodreads.com/book/show/${slug}`}
               />
             )}
-            {scrapedData && <ResultData scrapedData={scrapedData} />}
+            {scrapedData && <ResultData scrapedData={scrapedData} slug={slug} />}
           </>
         )}
         <Footer />

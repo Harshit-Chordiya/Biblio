@@ -1,8 +1,10 @@
 const cheerio = require("cheerio");
+import { NextRequest, NextResponse } from 'next/server'
 
-const BookScraper = async (req, res) => {
-  if (req.method === "POST") {
-    const scrapeURL = req.body.queryURL.split("?")[0];
+
+export const POST = async (req, res) => {
+    const body = await req.json();
+    const scrapeURL = body.queryURL.split("?")[0];
     try {
       const response = await fetch(`${scrapeURL}`, {
         method: "GET",
@@ -171,7 +173,7 @@ const BookScraper = async (req, res) => {
         title === "" ? (res.statusCode = 504) : (res.statusCode = 200);
       }
 
-      return res.json({
+      return NextResponse.json({
         status: "Received",
         statusCode: res.statusCode,
         source: "https://github.com/nesaku/biblioreads",
@@ -206,12 +208,6 @@ const BookScraper = async (req, res) => {
         scrapeURL: scrapeURL,
       });
     }
-  } else {
-    res.statusCode = 405;
-    return res.json({
-      status: "Error 405 - Method Not Allowed",
-    });
-  }
+
 };
 
-export default BookScraper;

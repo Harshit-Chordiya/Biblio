@@ -11,7 +11,7 @@ import Link from "next/link";
 import { openDB } from "idb";
 import Toast from "../global/Toast";
 
-const ResultData = ({ scrapedData }) => {
+const ResultData = ({ scrapedData, slug }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [isOpened, setIsOpened] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
@@ -32,6 +32,7 @@ const ResultData = ({ scrapedData }) => {
       console.error("Error initializing database:", error);
     }
   }
+  console.log(slug)
 
   useEffect(() => {
     const savedBookCheck = async () => {
@@ -47,7 +48,7 @@ const ResultData = ({ scrapedData }) => {
     };
 
     savedBookCheck();
-  }, [router.query.slug]);
+  }, [slug]);
 
   useEffect(() => {
     async function manageBooks() {
