@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Meta from "@/components/global/Meta";
 import EditionsList from "./EditionsList";
 import Link from "next/link";
-import SmallLoader from "@global/SmallLoader";
+import SmallLoader from "../global/SmallLoader";
 
 const EditionResults = ({ scrapedData }) => {
   const [selectedEdition, setSelectedEdition] = useState(null);

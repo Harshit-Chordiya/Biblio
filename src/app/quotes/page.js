@@ -22,7 +22,7 @@ const Quotes = () => {
     });
     if (res.ok) {
       const data = await res.json();
-      setScrapedData(data);
+      setScrapedData(data.respData);
     } else {
       setError(true);
     }

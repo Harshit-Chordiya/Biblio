@@ -46,7 +46,8 @@ const Slug = ({params}) => {
       })
       if (res.ok) {
         const data = await res.json()
-        setScrapedData(data)
+        console.log(data.respData)
+        setScrapedData(data.respData)
         setIsLoading(false)
       } else {
         setError(true)

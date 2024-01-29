@@ -1,8 +1,9 @@
 const cheerio = require("cheerio");
+import { NextRequest, NextResponse } from 'next/server'
 
-const QuotesSlugScraper = async (req, res) => {
-  if (req.method === "POST") {
-    const scrapeURL = req.body.queryURL.replaceAll(",", "/").split("&")[0];
+export const POST = async (req, res) => {
+    const body = await req.json();
+    const scrapeURL = body.queryURL.replaceAll(",", "/").split("&")[0];
     try {
       const response = await fetch(`${scrapeURL}`, {
         method: "GET",
@@ -77,12 +78,8 @@ const QuotesSlugScraper = async (req, res) => {
         })
         .toArray();
       const lastScraped = new Date().toISOString();
-      res.statusCode = 200;
-      res.setHeader(
-        "Cache-Control",
-        "public, s-maxage=600, stale-while-revalidate=1800"
-      );
-      return res.json({
+
+      const respData = {
         status: "Received",
         source: "https://github.com/nesaku/biblioreads",
         scrapeURL: scrapeURL,
@@ -90,21 +87,30 @@ const QuotesSlugScraper = async (req, res) => {
         quotes: quotes,
         popularTags: popularTags,
         lastScraped: lastScraped,
-      });
+      }
+      
+      return NextResponse.json(
+        {message: "ok", respData},
+        {
+          status: 200,
+          headers: {
+            'Cache-Control': 'public, s-maxage=600, stale-while-revalidate=1800',
+          }
+        }
+      )
+     
     } catch (error) {
-      res.statusCode = 404;
-      console.error("An error has occurred with the scraper.");
-      return res.json({
-        status: "Error - Invalid Query",
-        scrapeURL: scrapeURL,
-      });
+        console.error("An error has occurred with the scraper.");
+        return NextResponse.json(
+          {
+            status: "Error - Invalid Query",
+            scrapeURL: scrapeURL,
+          },
+          {
+            status: 404
+          }
+        )
     }
-  } else {
-    res.statusCode = 405;
-    return res.json({
-      status: "Error 405 - Method Not Allowed",
-    });
-  }
+
 };
 
-export default QuotesSlugScraper;

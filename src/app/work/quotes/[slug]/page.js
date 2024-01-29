@@ -1,3 +1,4 @@
+"use client"
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Header from '@/components/global/Header'
@@ -26,7 +27,7 @@ const Slug = ({params}) => {
       })
       if (res.ok) {
         const data = await res.json()
-        setScrapedData(data)
+        setScrapedData(data.respData)
       } else {
         setError(true)
       }

@@ -1,11 +1,11 @@
 const cheerio = require("cheerio");
+import { NextRequest, NextResponse } from 'next/server'
 
-const BooksScraper = async (req, res) => {
-  if (req.method === "POST") {
+export const POST = async (req, res) => {
+  const body = await req.json();
     // The default sort is by popularity
     // Use the URL parameter "per_page" to get 100 instead of the default 30 books
-    const scrapeURL =
-      req.body.queryURL.split("&")[0] + `?page=${req.body.page}&per_page=100`;
+    const scrapeURL =body.queryURL.split("&")[0] + `?page=${body.page}&per_page=100`;
     try {
       const response = await fetch(`${scrapeURL}`, {
         method: "GET",
@@ -61,12 +61,8 @@ const BooksScraper = async (req, res) => {
         "div.leftContainer > div[style='float: right'] > div > a.next_page"
       ).attr("href");
       const lastScraped = new Date().toISOString();
-      res.statusCode = 200;
-      res.setHeader(
-        "Cache-Control",
-        "public, s-maxage=600, stale-while-revalidate=1800"
-      );
-      return res.json({
+
+      const respData = {
         status: "Received",
         source: "https://github.com/nesaku/biblioreads",
         scrapeURL: scrapeURL,
@@ -76,21 +72,29 @@ const BooksScraper = async (req, res) => {
         previousPage: previousPage,
         nextPage: nextPage,
         lastScraped: lastScraped,
-      });
-    } catch (error) {
-      res.statusCode = 404;
-      console.error("An error has occurred with the scraper.");
-      return res.json({
-        status: "Error - Invalid Query",
-        scrapeURL: scrapeURL,
-      });
-    }
-  } else {
-    res.statusCode = 405;
-    return res.json({
-      status: "Error 405 - Method Not Allowed",
-    });
-  }
-};
+      }
+      return NextResponse.json(
+        {message: "ok", respData},
+        {
+          status: 200,
+          headers: {
+            'Cache-Control': 'public, s-maxage=600, stale-while-revalidate=1800',
+          }
+        }
+      )
 
-export default BooksScraper;
+    } catch (error) {
+      console.error("An error has occurred with the scraper.");
+      return NextResponse.json(
+        {
+          status: "Error - Invalid Query",
+          scrapeURL: scrapeURL,
+        },
+        {
+          status: 404
+        }
+      )
+      
+    }
+  
+};
