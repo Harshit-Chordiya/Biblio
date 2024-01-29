@@ -5,12 +5,20 @@ module.exports = {
     "./src/pages/**/*.{js,ts,jsx,tsx}",
     "./src/components/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        gradienthero:
+          "linear-gradient(40deg, #5c1324 0%, #111827 0%, #111827 30%, #5c1324 100%);",
+        gradientcorner:
+          "linear-gradient(20deg, #111827 32%, #111827 68%, #9a203c 100%);",
+        gradientedge:
+          "linear-gradient(40deg, #9a203c 0%, #111827 0%, #111827 90%, #9a203c 100%);",
+        gradientpage:
+          "linear-gradient(14deg, #9a203c 0%, #111827 20%, #111827 80%, #9a203c 100%);",
+        gradientmix:
+          "linear-gradient(90deg, #f0357c, #f154ff, #777dff, #497ce2, #37bdde);",
       },
     },
   },

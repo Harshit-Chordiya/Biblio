@@ -1,4 +1,3 @@
-'use client'
 import React from 'react'
 import FormQuery from '@/components/FormQuery'
 import Footer from '@/components/global/Footer'
