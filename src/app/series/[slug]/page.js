@@ -16,7 +16,7 @@ const Slug = ({params}) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(`/api/series-scraper`, {
+      const res = await fetch(`/api/seriesscraper`, {
         method: 'POST',
         headers: {
           'content-type': 'application/json'
@@ -27,7 +27,8 @@ const Slug = ({params}) => {
       })
       if (res.ok) {
         const data = await res.json()
-        setScrapedData(data)
+        console.log(data.data)
+        setScrapedData(data.data)
       } else {
         console.log(res)
         setError(true)

@@ -11,31 +11,30 @@ import SearchBox from '@/components/searchpage/SearchBox'
 import QuotesResultData from '@/components/searchpage/QuotesResultData'
 import ListsResultData from '@/components/searchpage/ListsResultData'
 
-const Slug = ({params}) => {
+const Slug = ({params, searchParams}) => {
   const router = useRouter()
-  // const { slug } = router.query
-  const { query } = router
+  const slug = params.slug
   const [scrapedData, setScrapedData] = useState({})
   const [error, setError] = useState(false)
 
   useEffect(() => {
-    // Based on the query.type the appropriate scraper is used
+    // Based on the searchParams.type the appropriate scraper is used
     const scraperPath = searchType()
     // TODO: Add people and groups search once those routes have been added
     function searchType () {
-      if (query.type === 'books') {
+      if (searchParams.type === 'books') {
         const scraperPath = '/api/search/books'
         return scraperPath
-      } else if (query.type === 'people') {
+      } else if (searchParams.type === 'people') {
         const scraperPath = '/api/search/people'
         return scraperPath
-      } else if (query.type === 'quotes') {
+      } else if (searchParams.type === 'quotes') {
         const scraperPath = '/api/search/quotes'
         return scraperPath
-      } else if (query.type === 'lists') {
+      } else if (searchParams.type === 'lists') {
         const scraperPath = '/api/search/lists'
         return scraperPath
-      } else if (query.type === 'groups') {
+      } else if (searchParams.type === 'groups') {
         const scraperPath = '/api/search/groups'
         return scraperPath
       } else {
@@ -43,6 +42,8 @@ const Slug = ({params}) => {
         return scraperPath
       }
     }
+
+    console.log(scraperPath)
 
     const abortController = new AbortController()
 
@@ -62,7 +63,8 @@ const Slug = ({params}) => {
         })
         if (res.ok) {
           const data = await res.json()
-          setScrapedData(data)
+          console.log(data)
+          setScrapedData(data.respData)
         } else {
           setError(true)
         }

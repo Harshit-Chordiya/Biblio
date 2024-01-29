@@ -11,19 +11,20 @@ const SearchBox = (props) => {
   const router = useRouter();
 
   const onSubmit = (e) => {
-    e.preventDefault();
-    if (!inputValue.includes("https://")) {
-      router.push({
-        pathname: `/search/${inputValue.replaceAll("/", "-")}`,
-        query: { type: queryType ? queryType : "books" },
-      });
-    } else {
-      setValidQuery(false);
-    }
+      e.preventDefault();
+      console.log(queryType)
+      if (!inputValue.includes("https://")) {
+        router.push(`/search/${inputValue.replaceAll("/", "-")}?type=${queryType}`);
+      } else {
+        setValidQuery(false);
+      }
   };
 
   useEffect(() => {
-    setQueryType(props.searchType);
+    if(props.searchType){
+
+      setQueryType(props.searchType);
+    }
   }, [props.searchType]);
 
   return (

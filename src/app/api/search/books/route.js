@@ -1,10 +1,10 @@
 const cheerio = require("cheerio");
+import { NextRequest, NextResponse } from 'next/server'
 
-const SearchScraper = async (req, res) => {
-  if (req.method === "POST") {
-    const scrapeURL = req.body.queryURL.split("&")[0];
-
-    try {
+export const POST = async (req, res) => {
+    const body = await req.json();
+    const scrapeURL = body.queryURL.split("&")[0];
+    console.log(scrapeURL)
       const response = await fetch(`${scrapeURL}`, {
         method: "GET",
         headers: new Headers({
@@ -52,12 +52,8 @@ const SearchScraper = async (req, res) => {
         .toArray();
 
       const lastScraped = new Date().toISOString();
-      res.statusCode = 200;
-      res.setHeader(
-        "Cache-Control",
-        "public, s-maxage=600, stale-while-revalidate=1800"
-      );
-      return res.json({
+      
+      const respData = {
         status: "Received",
         source: "https://github.com/nesaku/biblioreads",
         scrapeURL: scrapeURL,
@@ -65,21 +61,16 @@ const SearchScraper = async (req, res) => {
         numberOfResults: numberOfResults,
         result: result,
         lastScraped: lastScraped,
-      });
-    } catch (error) {
-      res.statusCode = 404;
-      console.error("An error has occurred with the scraper.");
-      return res.json({
-        status: "Error - Invalid Query",
-        scrapeURL: scrapeURL,
-      });
-    }
-  } else {
-    res.statusCode = 405;
-    return res.json({
-      status: "Error 405 - Method Not Allowed",
-    });
-  }
+      }
+      return NextResponse.json(
+        {message: "ok", respData},
+        {
+          status: 200,
+          headers: {
+            'Cache-Control': 'public, s-maxage=600, stale-while-revalidate=1800',
+          }
+        }
+      )
+     
 };
 
-export default SearchScraper;
